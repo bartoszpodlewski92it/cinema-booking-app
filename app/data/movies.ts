@@ -13,7 +13,7 @@ export const moviesData: Movie[] = [
     title: "Coach Carter",
     genre: "Sportowy / Dramat",
     duration: "136 min",
-    description: "Trener koszykówki walczy z systemem edukacyjnym.",
+    description: "Basketball coach fights the education system.",
     shows: ["14:30", "17:15", "20:00"]
   },
   {
@@ -21,7 +21,7 @@ export const moviesData: Movie[] = [
     title: "Enemy at the Gates",
     genre: "Wojenny/Akcja",
     duration: "131 min",
-    description: "Epicki pojedynek dwóch wybitnych snajperów podczas drugiej wojny światowej.",
+    description: "Epic battle between two renowned snipers during World War II.",
     shows: ["15:00", "18:00", "21:00"]
   },
   {
@@ -29,7 +29,7 @@ export const moviesData: Movie[] = [
     title: "Gladiator",
     genre: "Akcja/Przygodowy",
     duration: "155 min",
-    description: "Gladiator Maximus walczy o wolność, honor i sławę w imperium rzymskim.",
+    description: "Gladiator Maximus fights for freedom, honor, and glory in the Roman Empire.",
     shows: ["16:00", "19:30"]
   }
 ];

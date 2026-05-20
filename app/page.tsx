@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { moviesData } from "./data/movies";
 
 export default function Home() {
@@ -5,10 +6,10 @@ export default function Home() {
     <div className="flex min-h-screen flex-col items-center bg-slate-950 text-white p-8">
       <header className="text-center my-10">
         <h1 className="text-4xl font-extrabold text-blue-500 mb-2 tracking-tight">
-          Kino "DevCinema"
+          DevCinema
         </h1>
         <p className="text-gray-400 text-lg">
-          Wybierz film i godzinę seansu, aby rozpocząć rezerwację miejsca
+          Select a movie and showtime to start booking your seats
         </p>
       </header>
 
@@ -23,20 +24,21 @@ export default function Home() {
                 {movie.genre}
               </span>
               <h2 className="text-2xl font-bold mt-3 mb-1 text-slate-100">{movie.title}</h2>
-              <p className="text-xs text-gray-500 mb-3">Czas trwania: {movie.duration}</p>
+              <p className="text-xs text-gray-500 mb-3">Duration: {movie.duration}</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-6">{movie.description}</p>
             </div>
 
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Dostępne seanse:</p>
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Available Showtimes:</p>
               <div className="flex flex-wrap gap-2">
                 {movie.shows.map((show) => (
-                  <button 
-                    key={show}
-                    className="bg-slate-800 hover:bg-blue-600 text-sm font-semibold py-2 px-4 rounded-lg transition-colors border border-slate-700"
-                  >
-                    {show}
-                  </button>
+                <Link 
+                  key={show}
+                  href={`/booking/${movie.id}/${show.replace(":", "-")}`}
+                  className="bg-slate-800 hover:bg-blue-600 text-sm font-semibold py-2 px-4 rounded-lg transition-colors border border-slate-700 block text-center"
+                >
+                  {show}
+                </Link>
                 ))}
               </div>
             </div>
