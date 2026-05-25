@@ -27,12 +27,47 @@ export default function CheckoutPage({ params }: PageProps) {
 
   const [isClient, setIsClient] = useState(false);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (name === "") {
+      setNameError("");
+      return;
+    }
+    if (name.trim().length < 3) {
+      setNameError("Full name must be at least 3 characters long.");
+    } else if (!/^[a-zA-ZĄĆĘŁŃÓŚŹŻąćęłńóśźż]+\s[a-zA-ZĄĆĘŁŃÓŚŹŻąćęłńóśźż]+$/.test(name.trim())) {
+      setNameError("Please enter both your first and last name (letters only).");
+    } else {
+      setNameError("");
+    }
+  }, [name]);
+
+  useEffect(() => {
+    if (email === "") {
+      setEmailError("");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address (e.g., name@example.com).");
+    } else {
+      setEmailError("");
+    }
+  }, [email]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (nameError || emailError || !name || !email) return;
+
     alert("Booking successful! Check your email for tickets. 🍿");
     router.push("/");
   };
@@ -46,6 +81,7 @@ export default function CheckoutPage({ params }: PageProps) {
   }
 
   const totalPrice = selectedSeats.length * TICKET_PRICE;
+  const isFormInvalid = !!nameError || !!emailError || !name || !email;
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-slate-950 text-white p-8">
@@ -83,25 +119,38 @@ export default function CheckoutPage({ params }: PageProps) {
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Full Name</label>
             <input
               type="text"
-              required
-              placeholder="John Doe"
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg py-2.5 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Jan Kowalski"
+              className={`w-full bg-slate-950 border rounded-lg py-2.5 px-4 text-white placeholder-gray-600 focus:outline-none transition-colors text-sm ${
+                nameError ? "border-red-500 focus:border-red-500" : "border-slate-800 focus:border-blue-500"
+              }`}
             />
+            {nameError && <p className="text-red-500 text-xs mt-1 animate-fade-in">{nameError}</p>}
           </div>
 
           <div>
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Email Address</label>
             <input
               type="email"
-              required
-              placeholder="john@example.com"
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg py-2.5 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="jan@kowalski.com"
+              className={`w-full bg-slate-950 border rounded-lg py-2.5 px-4 text-white placeholder-gray-600 focus:outline-none transition-colors text-sm ${
+                emailError ? "border-red-500 focus:border-red-500" : "border-slate-800 focus:border-blue-500"
+              }`}
             />
+            {emailError && <p className="text-red-500 text-xs mt-1 animate-fade-in">{emailError}</p>}
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg shadow-lg transition-colors mt-2 text-sm"
+            disabled={isFormInvalid}
+            className={`w-full font-bold py-3 rounded-lg shadow-lg transition-all mt-2 text-sm ${
+              isFormInvalid
+                ? "bg-slate-800 text-gray-500 cursor-not-allowed shadow-none"
+                : "bg-blue-600 hover:bg-blue-500 text-white"
+            }`}
           >
             Confirm & Pay
           </button>
