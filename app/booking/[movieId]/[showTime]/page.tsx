@@ -2,6 +2,7 @@
 
 import { useState, useEffect, use, useMemo } from "react";
 import { moviesData } from "../../../data/movies";
+import { formatShowtime } from "../../../utils/format";
 import LoadingState from "../../../../components/LoadingState";
 import BookingHeader from "../../../../components/BookingHeader";
 import Legend from "../../../../components/Legend";
@@ -21,7 +22,7 @@ export default function BookingPage({ params }: PageProps) {
   const resolvedParams = use(params);
   const movieId = resolvedParams?.movieId;
   const showTime = resolvedParams?.showTime;
-  const decodedTime = showTime ? decodeURIComponent(showTime) : "";
+  const decodedTime = formatShowtime(showTime);
 
   const movie = moviesData.find((m) => m.id === movieId);
 

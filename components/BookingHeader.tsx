@@ -13,7 +13,8 @@ export default function BookingHeader({ title, time, totalPrice }: BookingHeader
         <Link href="/" className="text-sm text-blue-400 hover:underline">← Back to movies</Link>
         <h1 className="text-3xl font-bold mt-2">{title}</h1>
         <p className="text-gray-400 text-sm">
-          Showtime: <span className="text-blue-400 font-semibold">{time}</span>
+          {/* TUTAJ: Dodajemy replace bezpośrednio przy renderowaniu tekstu */}
+          Showtime: <span className="text-blue-400 font-semibold">{time.replace("-", ":")}</span>
         </p>
       </div>
       <div className="text-right">
