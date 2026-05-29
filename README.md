@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevCinema - Cinema Seat Booking Application
 
-## Getting Started
+A web application built with Next.js 15 (App Router), React, and Tailwind CSS for booking cinema seats.
 
-First, run the development server:
+## Technical Stack
+- Framework: Next.js 15 (App Router) with TypeScript
+- Styling: Tailwind CSS
+- State Management: React Hooks (useState, useEffect, useMemo)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+- Dynamic Routing: URL-based state transfer using nested routes (/booking/[movieId]/[showTime]/checkout).
+- Interactive Seat Grid: Theater map with real-time seat status selection (Available, Selected, Occupied).
+- Data Sanitation: Centralized utility function (formatShowtime) to handle showtime decoding between URLs and UI layers.
+- Form Validation: Client-side validation with regex pattern matching for user name and email input fields.
+- Success State: Custom feedback view handled by internal component state upon successful form submission.
+
+## Project Structure
+```text
+├── app/
+│   ├── booking/
+│   │   └── [movieId]/
+│   │       └── [showTime]/
+│   │           ├── checkout/
+│   │           │   └── page.tsx      # Checkout page component
+│   │           └── page.tsx          # Seat selection page component
+│   ├── data/
+│   │   └── movies.ts                 # Mock database file
+│   ├── utils/
+│   │   └── format.ts                 # Showtime formatting utility
+│   ├── layout.tsx
+│   └── page.tsx                      # Main movie catalog dashboard
+└── components/                       # Reusable UI components
+    ├── BookingHeader.tsx
+    ├── CheckoutForm.tsx
+    ├── Legend.tsx
+    ├── LoadingState.tsx
+    ├── OrderSummary.tsx
+    ├── Screen.tsx
+    ├── SeatButton.tsx
+    ├── SeatGrid.tsx
+    └── SummaryBar.tsx
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation and Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+git clone <repository-url>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+npm install
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Run the development server:
+npm run dev

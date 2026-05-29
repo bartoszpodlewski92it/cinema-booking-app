@@ -36,7 +36,11 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (nameError || emailError || !name || !email) return;
-    onSubmit({ name, email });
+    
+    onSubmit({ 
+      name: name.trim(), 
+      email: email.trim() 
+    });
   };
 
   const isFormInvalid = !!nameError || !!emailError || !name || !email;
